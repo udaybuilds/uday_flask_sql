@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  udaydb:
+    image: mysql:8.0
+    container_name: udaydb
+    environment:
+      MYSQL_ROOT_PASSWORD: Hello@12345
+      MYSQL_DATABASE: testdb
+  udayflasksql:
+    build: .
+    ports:
+      - "4081:5000"
+    environment:
+      FLASK_ENV: development
+      MYSQL_HOST: udaydb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: example
+      MYSQL_DATABASE: testdb
+    depends_on:
+      - udaydb
